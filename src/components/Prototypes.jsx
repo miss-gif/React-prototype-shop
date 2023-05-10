@@ -1,14 +1,19 @@
 import usePrototypes from "../hooks/usePrototypes";
+import useActions from "./../hooks/useActions";
 
 const Prototypes = () => {
   const prototypes = usePrototypes();
+  const { addToOrder } = useActions();
 
   return (
     <main>
       <div className="prototype">
         {prototypes.map((prototype) => {
-          const { id, title, artist, desc, thumbnail, price, pieUrl } =
-            prototype;
+          const { id, title, desc, thumbnail, price, pieUrl } = prototype;
+          const click = () => {
+            addToOrder(id);
+          };
+
           return (
             <div className="prototype" key={id}>
               <a href={pieUrl} target="_blank" rel="noreferrer">
@@ -26,7 +31,7 @@ const Prototypes = () => {
               <div className="prototype__body">
                 <div className="prototype__title">
                   <div className="btn btn--primary float--right">
-                    <i className="icon icon--plus"></i>
+                    <i className="icon icon--plus" onClick={click}></i>
                   </div>
                   {title}
                 </div>
